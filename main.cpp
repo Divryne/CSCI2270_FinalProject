@@ -2,6 +2,8 @@
 
 Data data;
 
+// main loop
+
 int main(int argc, char* argv[])
 {
     bool quit = false;
@@ -12,13 +14,15 @@ int main(int argc, char* argv[])
     cout << "3. Insert first nested inventory item" << endl;
     cout << "4. Insert nested inventory item" << endl;
     cout << "5. Delete item" << endl;
-    cout << "6. Change item quantity" << endl;
-    cout << "7. Clear all" << endl;
-    cout << "8. Print all items" << endl;
-    cout << "9. Print all nested inventory items" << endl;
-    cout << "10. Find item" << endl;
-    cout << "11. Select inventory" << endl;
-    cout << "12. Quit" << endl;
+    cout << "6. Delete inventory item" << endl;
+    cout << "7. Change item quantity" << endl;
+    cout << "8. Change inventory item quantity" << endl;
+    cout << "9. Clear all" << endl;
+    cout << "10. Print all items" << endl;
+    cout << "11. Print all nested inventory items" << endl;
+    cout << "12. Find item" << endl;
+    cout << "13. Find inventory item" << endl;
+    cout << "14. Quit" << endl;
 
     while (! quit)
     {
@@ -112,6 +116,19 @@ int main(int argc, char* argv[])
         }
         else if (input == "6")
         {
+            string inventoryName;
+            string name;
+
+            cin.ignore();
+            cout << "Enter name of inventory item:" << endl;
+            getline(cin, inventoryName);
+            cout << "Enter item name:" << endl;
+            getline(cin, name);
+
+            data.deleteInventoryItem(inventoryName, name);
+        }
+        else if (input == "7")
+        {
             string name;
             string quantity;
 
@@ -125,15 +142,33 @@ int main(int argc, char* argv[])
 
             data.changeQuantity(name, quantityInt);
         }
-        else if (input == "7")
+        else if (input == "8")
+        {
+            string inventoryName;
+            string name;
+            string quantity;
+
+            cin.ignore();
+            cout << "Enter name of inventory item:" << endl;
+            getline(cin, inventoryName);
+            cout << "Enter item name:" << endl;
+            getline(cin, name);
+            cout << "Enter new item quantity:" << endl;
+            getline(cin, quantity);
+
+            int quantityInt = atoi(quantity.c_str());
+
+            data.changeInventoryQuantity(inventoryName, name, quantityInt);
+        }
+        else if (input == "9")
         {
             data.clearAll();
         }
-        else if (input == "8")
+        else if (input == "10")
         {
             data.printAllItems();
         }
-        else if (input == "9")
+        else if (input == "11")
         {
             string name;
 
@@ -143,7 +178,7 @@ int main(int argc, char* argv[])
 
             data.printInventoryItems(name);
         }
-        else if (input == "10")
+        else if (input == "12")
         {
             string name;
 
@@ -153,11 +188,20 @@ int main(int argc, char* argv[])
 
             data.findItem(name);
         }
-        else if (input == "11")
+        else if (input == "13")
         {
+            string inventoryName;
+            string name;
 
+            cin.ignore();
+            cout << "Enter name of inventory item:" << endl;
+            getline(cin, inventoryName);
+            cout << "Enter item name:" << endl;
+            getline(cin, name);
+
+            data.findInventoryItem(inventoryName, name);
         }
-        else if (input == "12")
+        else if (input == "14")
         {
             cout << "Exiting program." << endl;
 
@@ -170,13 +214,15 @@ int main(int argc, char* argv[])
         cout << "3. Insert first nested inventory item" << endl;
         cout << "4. Insert nested inventory item" << endl;
         cout << "5. Delete item" << endl;
-        cout << "6. Change item quantity" << endl;
-        cout << "7. Clear all" << endl;
-        cout << "8. Print all items" << endl;
-        cout << "9. Print all nested inventory items" << endl;
-        cout << "10. Find item" << endl;
-        cout << "11. Select inventory" << endl;
-        cout << "12. Quit" << endl;
+        cout << "6. Delete inventory item" << endl;
+        cout << "7. Change item quantity" << endl;
+        cout << "8. Change inventory item quantity" << endl;
+        cout << "9. Clear all" << endl;
+        cout << "10. Print all items" << endl;
+        cout << "11. Print all nested inventory items" << endl;
+        cout << "12. Find item" << endl;
+        cout << "13. Find inventory item" << endl;
+        cout << "14. Quit" << endl;
     }
 
     return 0;

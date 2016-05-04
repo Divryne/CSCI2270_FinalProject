@@ -172,23 +172,75 @@ void Data::deleteItem(std::string name)
     {
         if (temp == front)
         {
-            temp->next->previous = NULL;
+            front = temp->next;
         }
-        else if (temp == back)
+        if (temp->next != NULL)
         {
-            temp->previous->next = NULL;
+            temp->next->previous = temp->previous;
         }
-        else
+        if (temp->previous != NULL)
         {
             temp->previous->next = temp->next;
-            temp->next->previous = temp->previous;
         }
 
         delete temp;
+        temp = NULL;
     }
     else
     {
         cout << "Item not found." << endl;
+    }
+}
+
+void Data::deleteInventoryItem(std::string inventoryName, std::string name)
+{
+    // Delete a given item within a nested inventory
+
+    DataElem *temp = front;
+    bool itemFound = false;
+
+    while (temp != NULL)
+    {
+        if (temp->name == inventoryName)
+        {
+            DataElem *temp2 = temp->front;
+
+            while (temp2 != NULL)
+            {
+                if (temp2->name == name)
+                {
+                    itemFound = true;
+                    break;
+                }
+
+                temp2 = temp2->next;
+            }
+
+            if (itemFound)
+            {
+                if (temp2 == front)
+                {
+                    front = temp2->next;
+                }
+                if (temp2->next != NULL)
+                {
+                    temp2->next->previous = temp2->previous;
+                }
+                if (temp2->previous != NULL)
+                {
+                    temp2->previous->next = temp2->next;
+                }
+
+                delete temp2;
+                temp2 = NULL;
+            }
+            else
+            {
+                cout << "Item not found." << endl;
+            }
+        }
+
+        temp = temp->next;
     }
 }
 
@@ -205,6 +257,37 @@ void Data::changeQuantity(std::string name, int quantity)
             temp->quantity = quantity;
             cout << "Quantity changed to: " << temp->quantity << endl;
             return;
+        }
+
+        temp = temp->next;
+    }
+
+    cout << "Item not found." << endl;
+}
+
+void Data::changeInventoryQuantity(std::string inventoryName, std::string name, int quantity)
+{
+    // Change quantity data of a given item within a nested inventory
+
+    DataElem* temp = front;
+
+    while (temp != NULL)
+    {
+        if (temp->name == inventoryName)
+        {
+            DataElem *temp2 = temp->front;
+
+            while (temp2 != NULL)
+            {
+                if (temp2->name == name)
+                {
+                    temp2->quantity = quantity;
+                    cout << "Quantity changed to: " << temp2->quantity << endl;
+                    return;
+                }
+
+                temp2 = temp2->next;
+            }
         }
 
         temp = temp->next;
@@ -286,7 +369,32 @@ void Data::findItem(std::string name)
     cout << "Item not found." << endl;
 }
 
-void Data::selectInventory(std::string name)
+void Data::findInventoryItem(std::string inventoryName, std::string name)
 {
+    // Find a given item within a nested inventory and display its name and quantity
 
+    DataElem* temp = front;
+
+    while (temp != NULL)
+    {
+        if (temp->name == inventoryName)
+        {
+            DataElem *temp2 = temp->front;
+
+            while (temp2 != NULL)
+            {
+                if (temp2->name == name)
+                {
+                    cout << "Item: " << temp2->name << " Quantity: " << temp2->quantity << endl;
+                    return;
+                }
+
+                temp2 = temp2->next;
+            }
+        }
+
+        temp = temp->next;
+    }
+
+    cout << "Item not found." << endl;
 }

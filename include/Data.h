@@ -49,12 +49,14 @@ class Data
         void insertNestedItem(std::string nestedName, std::string name, int position, int quantity);
 
         void deleteItem(std::string name);
+        void deleteInventoryItem(std::string inventoryName, std::string name);
         void changeQuantity(std::string name, int quantity);
+        void changeInventoryQuantity(std::string inventoryName, std::string name, int quantity);
         void clearAll();
         void printAllItems();
         void printInventoryItems(std::string name);
         void findItem(std::string name);
-        void selectInventory(std::string name);
+        void findInventoryItem(std::string inventoryName, std::string name);
 
     protected:
 
